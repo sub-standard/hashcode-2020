@@ -14,8 +14,6 @@ class Importer:
 
                 # [Process the file here...]
 
-                file.close()
-
                 return data
         else:
             print("Error: File not found")
