@@ -45,4 +45,4 @@ f = open("outputs/"+inSet+".txt", "w")
 # [Write output to file here...]
 f.close()
 
-zipdir()
+# zipdir()
