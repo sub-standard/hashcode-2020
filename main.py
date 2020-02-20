@@ -8,6 +8,7 @@ from src.Library import Library
 from src.sort_libraries import sort_libraries
 import random
 import zipfile
+from src.optimizer import *
 
 
 def zipdir():
@@ -47,13 +48,18 @@ print(f"Days: {days}, Libraries: {len(libraries)}, Books: {len(books)}")
 
 solution = []
 
+sorted_libraries = None
+
 t = 0
 imported_books = []
 while (t < days and len(libraries) > 0):
     print(f"Day {t} | Libraries: {len(libraries)}")
 
+    # first_library = first_library_optimizer(number_of_books, number_of_libraries, days, books, libraries)
+
     # sort libraries based on maximum score achievable in time remaining
-    sorted_libraries = sort_libraries(libraries, days, t, imported_books)
+    if t == 0 or probablistic_sort(t, days):
+        sorted_libraries = sort_libraries(libraries, days, t, imported_books)
 
     # pick top library
     chosen_library = sorted_libraries[0]["library"]
@@ -62,7 +68,10 @@ while (t < days and len(libraries) > 0):
     print(f"Chose library: L#{chosen_library.id}")
 
     # remove chosen library from selection
-    libraries.remove(chosen_library)
+    try:
+        libraries.remove(chosen_library)
+    except:
+        pass
 
     # mark books as imported
     imported_books += chosen_books
