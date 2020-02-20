@@ -8,3 +8,6 @@ class Library():
 
     def __str__(self):
         return f"L#{self.id} [{[str(b) for b in self.books]}]"
+
+    def __eq__(self, other):
+        return self.id == other.id

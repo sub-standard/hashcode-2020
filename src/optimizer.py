@@ -11,4 +11,4 @@ def first_library_optimizer(no_of_book, no_of_lib, day, books_score, libraries_b
     for library_book in libraries_books:
         no_of_books, sign_up_time, books_per_day, books = library_book
 
-        heuristic_score = -m.log(sign_up_time/100) * alpha + (m.log(books_per_day/no_of_books) * beta) +
+        heuristic_score = (-m.log(sign_up_time/100) * alpha) + (m.log(books_per_day/no_of_books) * beta) +

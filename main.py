@@ -4,6 +4,7 @@ import sys
 import os
 from src.Importer import Importer
 from src.Book import Book
+from src.Library import Library
 from src.sort_libraries import sort_libraries
 import random
 import zipfile
@@ -42,11 +43,11 @@ importer = Importer(inFile)
 
 number_of_books, number_of_libraries, days, books, libraries = importer.import_data_to_objects()
 
-solution = None
+solution = []
 
 t = 0
 imported_books = []
-while (t < days):
+while (t < days and len(libraries) > 0):
     # sort libraries based on maximum score achievable in time remaining
     libraries = sort_libraries(libraries, days, t, imported_books)
 
@@ -57,10 +58,10 @@ while (t < days):
     libraries.remove(chosen_library)
 
     # mark books as imported
-    imported_books.add_all(library.books)
+    imported_books += chosen_library.books
 
     # add library to solution along with sorted books in order of score
-    solution.add(chosen_library, sorted(Book.get_score, library.books))
+    solution.append(chosen_library)
 
     # increment current time to next possible setup
     t += chosen_library.sign_up_time
@@ -75,6 +76,9 @@ for library in solution:
     f.write(f"{library.id} {library.number_of_books}\n")
 
     # <[book ids] in order of score>
-    f.write(" ".join(map(Book.get_id, library.books)) + "\n")
+    sorted_books = sorted(library.books, key=lambda book: book.score)
+    f.write(" ".join(map(str, map(Book.get_id, sorted_books))) + "\n")
 f.close()
 ### END EXPORT SOLUTION ###
+
+zipdir()
