@@ -85,6 +85,8 @@ while (t < days and len(libraries) > 0):
 
     # increment current time to next possible setup
     t += chosen_library.sign_up_time
+
+    libraries = [library for library in libraries if library.sign_up_time + t < days]
 ### END SOLUTION ###
 
 ### EXPORT SOLUTION ###
