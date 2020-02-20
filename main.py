@@ -43,22 +43,29 @@ importer = Importer(inFile)
 
 number_of_books, number_of_libraries, days, books, libraries = importer.import_data_to_objects()
 
+print(f"Days: {days}, Libraries: {len(libraries)}, Books: {len(books)}")
+
 solution = []
 
 t = 0
 imported_books = []
 while (t < days and len(libraries) > 0):
+    print(f"Day {t} | Libraries: {len(libraries)}")
+
     # sort libraries based on maximum score achievable in time remaining
-    libraries = sort_libraries(libraries, days, t, imported_books)
+    sorted_libraries = sort_libraries(libraries, days, t, imported_books)
 
     # pick top library
-    chosen_library = libraries[0]
+    chosen_library = sorted_libraries[0]["library"]
+    librarys_books = sorted_libraries[0]["books"]
+
+    print(f"Chose library: L#{chosen_library.id}")
 
     # remove chosen library from selection
     libraries.remove(chosen_library)
 
     # mark books as imported
-    imported_books += chosen_library.books
+    imported_books += librarys_books
 
     # add library to solution along with sorted books in order of score
     solution.append(chosen_library)

@@ -6,6 +6,9 @@ class Book():
     def get_id(self):
         return self.id
 
+    def get_score(self):
+        return self.score
+
     def __str__(self):
         return f"B#{str(self.id)} ({str(self.score)})"
 

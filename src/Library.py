@@ -7,7 +7,8 @@ class Library():
         self.number_of_books = len(books)
 
     def __str__(self):
-        return f"L#{self.id} [{[str(b) for b in self.books]}]"
+        # return f"L#{self.id} [{[str(b) for b in self.books]}]"
+        return f"L#{self.id} ({self.number_of_books} books)"
 
     def __eq__(self, other):
         return self.id == other.id
