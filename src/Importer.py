@@ -60,6 +60,6 @@ class Importer:
             for b in books:
                 libBooks.append(outBooks[b])
 
-            outLibraries.append(Library(i, libBooks))
+            outLibraries.append(Library(i, libBooks, T, M))
 
         return B, L, D, outBooks, outLibraries
