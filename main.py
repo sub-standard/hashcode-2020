@@ -81,16 +81,20 @@ while (t < days and len(libraries) > 0):
 ### EXPORT SOLUTION ###
 f = open("outputs/"+inSet+".txt", "w")
 
+solution = [(lib, books) for (lib, books) in solution if len(books) > 0]
+
 f.write(f"{len(solution)}\n")  # <number of libraries>
 for library, chosen_books in solution:
-    if len(chosen_books) > 0:
-        # <library ID> <number of books to scan>
-        f.write(f"{library.id} {len(chosen_books)}\n")
+    if len(chosen_books) == 0:
+        raise "ERROR: found a library with no books while outputting"
 
-        # <[book ids] in order of score>
-        sorted_books = sorted(chosen_books, key=lambda book: book.score)
+    # <library ID> <number of books to scan>
+    f.write(f"{library.id} {len(chosen_books)}\n")
 
-        f.write(" ".join(map(str, map(Book.get_id, sorted_books))) + "\n")
+    # <[book ids] in order of score>
+    sorted_books = sorted(chosen_books, key=lambda book: book.score)
+
+    f.write(" ".join(map(str, map(Book.get_id, sorted_books))) + "\n")
 f.close()
 ### END EXPORT SOLUTION ###
 
