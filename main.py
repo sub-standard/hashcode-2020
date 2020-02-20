@@ -72,7 +72,7 @@ while (t < days and len(libraries) > 0):
             book for book in library.books if book not in chosen_books]
 
     # add library to solution along with sorted books in order of score
-    solution.append(chosen_library)
+    solution.append((chosen_library, chosen_books))
 
     # increment current time to next possible setup
     t += chosen_library.sign_up_time
@@ -82,12 +82,14 @@ while (t < days and len(libraries) > 0):
 f = open("outputs/"+inSet+".txt", "w")
 
 f.write(f"{len(solution)}\n")  # <number of libraries>
-for library in solution:
-    # <library ID> <number of books to scan>
-    f.write(f"{library.id} {library.number_of_books}\n")
+for library, chosen_books in solution:
 
     # <[book ids] in order of score>
-    sorted_books = sorted(library.books, key=lambda book: book.score)
+    sorted_books = sorted(chosen_books, key=lambda book: book.score)
+
+    # <library ID> <number of books to scan>
+    f.write(f"{library.id} {len(chosen_books)}\n")
+
     f.write(" ".join(map(str, map(Book.get_id, sorted_books))) + "\n")
 f.close()
 ### END EXPORT SOLUTION ###
