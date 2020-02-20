@@ -48,7 +48,7 @@ print(f"Days: {days}, Libraries: {len(libraries)}, Books: {len(books)}")
 
 solution = []
 
-sorted_libraries = None
+# sorted_libraries = None
 
 t = 0
 imported_books = []
@@ -58,8 +58,8 @@ while (t < days and len(libraries) > 0):
     # first_library = first_library_optimizer(number_of_books, number_of_libraries, days, books, libraries)
 
     # sort libraries based on maximum score achievable in time remaining
-    if t == 0 or probablistic_sort(t, days):
-        sorted_libraries = sort_libraries(libraries, days, t, imported_books)
+    # if t == 0 or probablistic_sort(t, days):
+    sorted_libraries = sort_libraries(libraries, days, t, imported_books)
 
     # pick top library
     chosen_library = sorted_libraries[0]["library"]
@@ -68,10 +68,10 @@ while (t < days and len(libraries) > 0):
     print(f"Chose library: L#{chosen_library.id}")
 
     # remove chosen library from selection
-    try:
-        libraries.remove(chosen_library)
-    except:
-        pass
+    libraries.remove(chosen_library)
+    # try:
+    # except:
+    #     pass
 
     # mark books as imported
     imported_books += chosen_books
@@ -86,7 +86,8 @@ while (t < days and len(libraries) > 0):
     # increment current time to next possible setup
     t += chosen_library.sign_up_time
 
-    libraries = [library for library in libraries if library.sign_up_time + t < days]
+    libraries = [
+        library for library in libraries if library.sign_up_time + t < days]
 ### END SOLUTION ###
 
 ### EXPORT SOLUTION ###
