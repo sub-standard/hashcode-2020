@@ -1,4 +1,6 @@
 import os.path
+from src.Book import Book
+from src.Library import Library
 
 class Importer:
     def __init__(self, filename : str) -> None:
@@ -42,3 +44,22 @@ class Importer:
         else:
             print("Error: File not found")
             raise FileNotFoundError
+
+    def import_data_to_objects(self):
+        B, L, D, bookScores, libraries = self.import_data_set()
+
+        outBooks = []
+        for i in range(0, len(bookScores)):
+            outBooks.append(Book(i, bookScores[i]))
+
+        outLibraries = []
+        for i in range(0, len(libraries)):
+            N, T, M, books = libraries[i]
+
+            libBooks = []
+            for b in books:
+                libBooks.append(outBooks[b])
+
+            outLibraries.append(Library(i, libBooks))
+
+        return B, L, D, outBooks, outLibraries

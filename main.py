@@ -39,7 +39,7 @@ else:
 
 importer = Importer(inFile)
 
-number_of_books, number_of_libraries, days, book_scores, libraries = importer.import_data_set()
+number_of_books, number_of_libraries, days, books, libraries = importer.import_data_to_objects()
 
 solution = None
 
