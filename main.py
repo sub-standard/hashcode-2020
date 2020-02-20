@@ -35,6 +35,9 @@ else:
 
 importer = Importer(inFile)
 M, N, slices = importer.import_data_set()
+print("M is %d" % M)
+print("N is %d" % N)
+print("slices is " + str(slices))
 
 # M is maximum number of pizza slices to order
 
@@ -45,8 +48,40 @@ M, N, slices = importer.import_data_set()
 
 # Let's get started
 
+typesSlices = []
+for i in range(0, len(slices)):
+    typesSlices.append((i, slices[i]))
+
+class Change(Exception):
+    pass
+
+def change(coins, amount):
+    # print("change <--" + str(coins) + " " + str(amount))
+    if amount == 0:
+        return []
+
+    if len(coins) == 0:
+        # print("change raises Change")
+        raise Change
+    else:
+        head, *tail = coins
+        i, n = head
+
+        try:
+            if n > amount:
+                ret = change(tail, amount)
+            else:
+                ret = [i] + change(tail, amount - n)
+        except Change:
+            ret = change(tail, amount)
+
+        # print("change --> " + str(ret))
+        return ret
+
 # List of types to order
-types = [] # ...
+types = change(typesSlices, M)
+
+print("output types is " + str(types))
 
 # Number of different types of pizza to order
 K = len(types)
@@ -58,6 +93,8 @@ for i in types:
 
 if totalSlices > M:
     print("ERROR: Something has gone wrong. Total slices has exceeded M.")
+else:
+    print("Predicted score: %i" % totalSlices)
 
 f = open("outputs/"+inSet+".txt", "w")
 f.write(str(K) + "\n")
