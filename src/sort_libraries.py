@@ -12,8 +12,8 @@ def sort_libraries(libraries, days, current_day, imported_books):
         if len(books) <= 0:
             continue
 
-        number_of_books_to_take = (
-            library.book_throughput * (days - current_day + library.sign_up_time))
+        time_for_books = (days - current_day + library.sign_up_time)
+        number_of_books_to_take = (library.book_throughput * time_for_books)
         scannable_books = books[:number_of_books_to_take]
 
         weight = 0
@@ -22,7 +22,7 @@ def sort_libraries(libraries, days, current_day, imported_books):
 
         results.append({
             "library": library,
-            "weight": weight,
+            "weight": weight / time_for_books,
             "books": scannable_books
         })
 
