@@ -19,7 +19,7 @@ inputs = {
     "b": "b_read_on.txt",
     "c": "c_incunabula.txt",
     "d": "d_tough_choices.txt",
-    "e": "e_so_many_books.txt"
+    "e": "e_so_many_books.txt",
     "f": "f_libraries_of_the_world.txt"
 }
 
