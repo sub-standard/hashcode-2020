@@ -9,6 +9,9 @@ def sort_libraries(libraries, days, current_day, imported_books):
     for library in libraries:
         books = library.books
 
+        if not books:
+            continue
+
         number_of_books_to_take = (
             library.book_throughput * (days - current_day - library.sign_up_time))
         scannable_books = books[:number_of_books_to_take]
