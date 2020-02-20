@@ -19,7 +19,7 @@ class Library():
 
     def __str__(self):
         # return f"L#{self.id} [{[str(b) for b in self.books]}]"
-        return f"L#{self.id} ({self.number_of_books} books)"
+        return f"L#{self.id} ({self.number_of_books} books, {self.sign_up_time} sign up time, {self.book_throughput} books/day)"
 
     def __eq__(self, other):
         return self.id == other.id

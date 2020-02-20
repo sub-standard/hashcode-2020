@@ -10,6 +10,17 @@ import random
 import zipfile
 from src.optimizer import *
 
+LOG_NORMAL = 0
+LOG_DEBUG = 1
+LOG_TRACE = 2
+LOG_LEVELS = ['normal', 'debug', 'trace']
+
+log_level_env = os.getenv('HC_LOG_LEVEL', 'normal')
+
+try:
+    log_level = LOG_LEVELS.index(log_level_env)
+except ValueError:
+    log_level = LOG_NORMAL
 
 def zipdir():
     zipf = zipfile.ZipFile('outputs/output.zip', 'w', zipfile.ZIP_DEFLATED)
@@ -18,6 +29,17 @@ def zipdir():
             zipf.write(os.path.join(root, file))
     zipf.write("main.py")
 
+def log_normal(msg):
+    if log_level >= LOG_NORMAL:
+        print(msg)
+
+def log_debug(msg):
+    if log_level >= LOG_DEBUG:
+        print(msg)
+
+def log_trace(msg):
+    if log_level >= LOG_TRACE:
+        print(msg)
 
 # Update input file names (these are the practice round ones...)
 inputs = {
@@ -40,12 +62,15 @@ else:
         print(str(i), end=" ")
     sys.exit()
 
+log_normal("Started importing...")
 importer = Importer(inFile)
 
 number_of_books, number_of_libraries, days, books, libraries = importer.import_data_to_objects()
+log_normal("Done importing")
 
 print(f"Days: {days}, Libraries: {len(libraries)}, Books: {len(books)}")
 
+log_normal("Started processing...")
 solution = []
 
 # sorted_libraries = None
@@ -53,7 +78,7 @@ solution = []
 t = 0
 imported_books = []
 while (t < days and len(libraries) > 0):
-    print(f"Day {t} | Libraries: {len(libraries)}")
+    log_debug(f"Day {t} | Libraries: {len(libraries)}")
 
     # first_library = first_library_optimizer(number_of_books, number_of_libraries, days, books, libraries)
 
@@ -65,7 +90,7 @@ while (t < days and len(libraries) > 0):
     chosen_library = sorted_libraries[0]["library"]
     chosen_books = sorted_libraries[0]["books"]
 
-    print(f"Chose library: L#{chosen_library.id}")
+    log_debug(f"Chose library: {chosen_library} with {len(chosen_books)} chosen books")
 
     # remove chosen library from selection
     libraries.remove(chosen_library)
@@ -89,7 +114,9 @@ while (t < days and len(libraries) > 0):
     libraries = [
         library for library in libraries if library.sign_up_time + t < days]
 ### END SOLUTION ###
+log_normal("Done processing")
 
+log_normal("Started exporting...")
 ### EXPORT SOLUTION ###
 f = open("outputs/"+inSet+".txt", "w")
 
