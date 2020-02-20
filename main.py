@@ -2,6 +2,7 @@
 
 import sys
 import os
+from math import ceil
 from src.Importer import Importer
 from src.Book import Book
 from src.Library import Library
@@ -136,5 +137,19 @@ for library, chosen_books in solution:
     f.write(" ".join(map(str, map(Book.get_id, sorted_books))) + "\n")
 f.close()
 ### END EXPORT SOLUTION ###
+log_normal("Done exporting")
+
+log_normal("Started visualising...")
+### VISUALISE SOLUTION ###
+v = open("outputs/visual/"+inSet+".txt", "w")
+v.write("|" + ' '*days + "|\n")
+time = 0
+for library, chosen_books in solution:
+    days_for_books = ceil(len(chosen_books)/library.book_throughput)
+    v.write('|' + ' '*time + 'X'*library.sign_up_time + '-'*days_for_books + ' '*(days-time-library.sign_up_time-days_for_books) + "|\n")
+    time += library.sign_up_time
+v.close()
+### END VISUALISE SOLUTION ###
+log_normal("Done visualising")
 
 zipdir()

@@ -123,5 +123,5 @@ dmypy.json
 .vscode/
 
 # Outputs
-outputs/*.txt
+outputs/**/*.txt
 *.zip
