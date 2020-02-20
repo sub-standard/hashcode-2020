@@ -35,7 +35,7 @@ else:
     sys.exit()
 
 importer = Importer(inFile)
-data = importer.import_data_set()
+B, L, D, bookScores, libraries = importer.import_data_set()
 
 # Let's get started
 
