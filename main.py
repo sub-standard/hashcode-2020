@@ -34,7 +34,7 @@ else:
     sys.exit()
 
 importer = Importer(inFile)
-data = importer.import_data_set()
+M, N, slices = importer.import_data_set()
 
 # Let's get started
 

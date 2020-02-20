@@ -10,13 +10,20 @@ class Importer:
             with open(self.filename, 'r') as file:
                 content = file.readlines()
 
-                data = []
+                line1 = content[0].strip()
+                parts = line1.split(" ")
+                M = int(parts[0])
+                N = int(parts[1])
 
-                # [Process the file here...]
+                line2 = content[1].strip()
+                parts2 = line2.split(" ")
+                slices = []
+                for part in parts2:
+                    slices.append(int(part))
 
                 file.close()
 
-                return data
+                return M, N, slices
         else:
             print("Error: File not found")
             raise FileNotFoundError
