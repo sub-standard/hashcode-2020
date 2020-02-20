@@ -12,5 +12,5 @@ class Book():
     def __str__(self):
         return f"B#{str(self.id)} ({str(self.score)})"
 
-    def __eq__(self, other):
-        return self.id == other.id
+    # def __eq__(self, other):
+    #     return self.id == other.id

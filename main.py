@@ -57,7 +57,7 @@ while (t < days and len(libraries) > 0):
 
     # pick top library
     chosen_library = sorted_libraries[0]["library"]
-    librarys_books = sorted_libraries[0]["books"]
+    chosen_books = sorted_libraries[0]["books"]
 
     print(f"Chose library: L#{chosen_library.id}")
 
@@ -65,7 +65,11 @@ while (t < days and len(libraries) > 0):
     libraries.remove(chosen_library)
 
     # mark books as imported
-    imported_books += librarys_books
+    imported_books += chosen_books
+
+    for library in libraries:
+        library.books = [
+            book for book in library.books if book not in chosen_books]
 
     # add library to solution along with sorted books in order of score
     solution.append(chosen_library)

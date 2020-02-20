@@ -1,3 +1,5 @@
+from src.Book import Book
+
 # number_of_books, number_of_libraries, days, book_scores, libraries
 
 
@@ -5,17 +7,15 @@ def sort_libraries(libraries, days, current_day, imported_books):
     results = []
 
     for library in libraries:
-        books = []
+        books = library.books
 
-        for book in library.books:
-            if book not in imported_books:
-                books.append(book)
-
-        sorted_books = sorted(books, key=lambda book: book.score)
         number_of_books_to_take = (
             library.book_throughput * (days - current_day - library.sign_up_time))
-        scannable_books = sorted_books[:number_of_books_to_take]
-        weight = sum(map(lambda book: book.score, scannable_books))
+        scannable_books = books[:number_of_books_to_take]
+
+        weight = 0
+        for book in scannable_books:
+            weight += book.score
 
         results.append({
             "library": library,
