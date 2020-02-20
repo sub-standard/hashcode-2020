@@ -36,12 +36,32 @@ else:
 importer = Importer(inFile)
 M, N, slices = importer.import_data_set()
 
+# M is maximum number of pizza slices to order
+
+# N is number of different pizza types there are i.e. len(slices)
+
+# slices is a list of how many slices a type of pizza has
+# index 0 contains the number of slices for pizza type 0 (S_0)
+
 # Let's get started
 
-# [Insert processing here...]
+# List of types to order
+types = [] # ...
+
+# Number of different types of pizza to order
+K = len(types)
+
+# Sanity check
+totalSlices = 0
+for i in types:
+    totalSlices += slices[i]
+
+if totalSlices > M:
+    print("ERROR: Something has gone wrong. Total slices has exceeded M.")
 
 f = open("outputs/"+inSet+".txt", "w")
-# [Write output to file here...]
+f.write(str(K) + "\n")
+f.write(" ".join(map(str, types)) + "\n")
 f.close()
 
 zipdir()
