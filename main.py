@@ -6,12 +6,14 @@ from src.Importer import Importer
 import random
 import zipfile
 
+
 def zipdir():
     zipf = zipfile.ZipFile('outputs/output.zip', 'w', zipfile.ZIP_DEFLATED)
     for root, dirs, files in os.walk("src/"):
         for file in files:
             zipf.write(os.path.join(root, file))
     zipf.write("main.py")
+
 
 # Update input file names (these are the practice round ones...)
 inputs = {
@@ -35,21 +37,9 @@ else:
     sys.exit()
 
 importer = Importer(inFile)
-B, L, D, bookScores, libraries = importer.import_data_set()
 
-# B: number of books ie len(bookScores)
-# L: number of libraries ie len(libraries)
-# D: number of days
-# bookScores: list of scores of each book where the index is the book ID
-# libraries: list of tuples of:
-    # N: number of books in library
-    # T: number of days to finish library signup
-    # M: number of books shippable from library per day
-    # books: list of book IDs in the library (where book ID is the index of the book score in bookScores)
+number_of_books, number_of_libraries, days, book_scores, libraries = importer.import_data_set()
 
-# Let's get started
-
-# [Insert processing here...]
 
 f = open("outputs/"+inSet+".txt", "w")
 # [Write output to file here...]
