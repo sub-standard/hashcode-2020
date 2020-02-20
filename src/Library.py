@@ -4,6 +4,7 @@ class Library():
         self.books = books
         self.sign_up_time = sign_up_time
         self.book_throughput = book_throughput
+        self.number_of_books = len(books)
 
     def __str__(self):
         return f"L#{self.id} [{[str(b) for b in self.books]}]"

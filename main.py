@@ -3,6 +3,7 @@
 import sys
 import os
 from src.Importer import Importer
+from src.Book import Book
 from src.sort_libraries import sort_libraries
 import random
 import zipfile
@@ -47,7 +48,7 @@ t = 0
 imported_books = []
 while (t < days):
     # sort libraries based on maximum score achievable in time remaining
-    libraries = sort_libraries(libraries, book_scores, days, t)
+    libraries = sort_libraries(libraries, days, t, imported_books)
 
     # pick top library
     chosen_library = libraries[0]
@@ -56,10 +57,10 @@ while (t < days):
     libraries.remove(chosen_library)
 
     # mark books as imported
-    imported_books.add_all(book_order)
+    imported_books.add_all(library.books)
 
     # add library to solution along with sorted books in order of score
-    solution.add(chosen_library, book_order)
+    solution.add(chosen_library, sorted(Book.get_score, library.books))
 
     # increment current time to next possible setup
     t += chosen_library.sign_up_time
@@ -71,9 +72,9 @@ f = open("outputs/"+inSet+".txt", "w")
 f.write(f"{len(solution)}\n")  # <number of libraries>
 for library in solution:
     # <library ID> <number of books to scan>
-    f.write(f"{library.id} {len(library.books)}\n")
+    f.write(f"{library.id} {library.number_of_books}\n")
 
     # <[book ids] in order of score>
-    f.write(" ".join(library.books) + "\n")
+    f.write(" ".join(map(Book.get_id, library.books)) + "\n")
 f.close()
 ### END EXPORT SOLUTION ###
