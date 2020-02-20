@@ -12,7 +12,7 @@ def sort_libraries(libraries, days, current_day, imported_books):
         if len(books) <= 0:
             continue
 
-        time_for_books = (days - current_day + library.sign_up_time)
+        time_for_books = (days - current_day - library.sign_up_time)
         number_of_books_to_take = (library.book_throughput * time_for_books)
         scannable_books = books[:number_of_books_to_take]
 
