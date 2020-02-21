@@ -21,8 +21,6 @@ class Importer:
                 for part in parts2:
                     slices.append(int(part))
 
-                file.close()
-
                 return M, N, slices
         else:
             print("Error: File not found")
